@@ -13,7 +13,9 @@ const (
 	walkingCaloriesCoefficient = 0.5  // коэффициент для расчета калорий при ходьбе.
 )
 
+// функция для подсчета калорий при ходьбе
 func WalkingSpentCalories(steps int, weight, height float64, duration time.Duration) (float64, error) {
+	// обработка некорректных параметров
 	if steps <= 0 {
 		return 0, errors.New("количество шагов должно быть положительным")
 	}
@@ -26,14 +28,16 @@ func WalkingSpentCalories(steps int, weight, height float64, duration time.Durat
 	if duration <= 0 {
 		return 0, errors.New("продолжительность должна быть продолжительной")
 	}
+	// вычисление количества потраченных калорий
 	averageSpeed := MeanSpeed(steps, height, duration)
 	minutes := duration.Minutes()
 	res := (weight * averageSpeed * minutes * walkingCaloriesCoefficient) / float64(minInH)
 	return res, nil
 }
 
+// функция для подсчета калорий при беге
 func RunningSpentCalories(steps int, weight, height float64, duration time.Duration) (float64, error) {
-	// TODO: реализовать функцию
+	// обработка некорректных параметров
 	if steps <= 0 {
 		return 0, errors.New("количество шагов должно быть положительным")
 	}
@@ -46,25 +50,23 @@ func RunningSpentCalories(steps int, weight, height float64, duration time.Durat
 	if duration <= 0 {
 		return 0, errors.New("продолжительность должна быть продолжительной")
 	}
+	// вычисление количества потраченных калорий
 	averageSpeed := MeanSpeed(steps, height, duration)
 	minutes := duration.Minutes()
 	res := (weight * averageSpeed * minutes) / float64(minInH)
 	return res, nil
-
 }
 
+// функция для рассчета средней скорости
 func MeanSpeed(steps int, height float64, duration time.Duration) float64 {
-	// TODO: реализовать функцию
+	// проверка значения продолжительности тренировки
 	if duration <= 0 {
 		return 0
 	}
-	way := Distance(steps, height)
-	return way / duration.Hours()
+	return Distance(steps, height) / duration.Hours()
 }
 
+// функция для рассчета дистанции
 func Distance(steps int, height float64) float64 {
-	// TODO: реализовать функцию
-	stepSize := height * stepLengthCoefficient
-	path := stepSize * float64(steps)
-	return path / float64(mInKm)
+	return height * stepLengthCoefficient * float64(steps) / float64(mInKm)
 }
