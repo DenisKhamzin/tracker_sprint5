@@ -30,7 +30,7 @@ func (t *Training) Parse(datastring string) (err error) {
 	// конвертация строки в int, обработка ошибки
 	t.Steps, err = strconv.Atoi(dataSlice[0])
 	if err != nil {
-		return err
+		return fmt.Errorf("Ошибка конвертации количества шагов: %w", err)
 	}
 	// проверка значения количества шагов
 	if t.Steps <= 0 {
@@ -41,7 +41,7 @@ func (t *Training) Parse(datastring string) (err error) {
 	// присвоение структуре значения продолжительности и обработка возможной ошибки
 	t.Duration, err = time.ParseDuration(dataSlice[2])
 	if err != nil {
-		return err
+		return fmt.Errorf("Ошибка парсинга продолжительности: %w", err)
 	}
 	// проверка значения продолжительности
 	if t.Duration <= 0 {

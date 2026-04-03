@@ -18,11 +18,13 @@ func Info(dataset []string, dp DataParser) {
 		err := dp.Parse(value)
 		if err != nil {
 			log.Printf("Ошибка %v", err)
+			break
 		}
 		// объект DataParser возвращает результирующую строку или ошибку, ошибка логируется
 		str, err := dp.ActionInfo()
 		if err != nil {
 			log.Printf("Ошибка %v", err)
+			break
 		}
 		fmt.Println(str)
 	}

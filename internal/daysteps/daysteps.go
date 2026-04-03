@@ -29,7 +29,7 @@ func (ds *DaySteps) Parse(datastring string) (err error) {
 	// конвертация количества шагов и возврат возможной ошибки конвертации
 	steps, err := strconv.Atoi(slice[0])
 	if err != nil {
-		return err
+		return fmt.Errorf("Ошибка конвертации количества шагов: %w", err)
 	}
 	// проверка количества шагов
 	if steps <= 0 {
@@ -39,7 +39,7 @@ func (ds *DaySteps) Parse(datastring string) (err error) {
 	// конвертация продолжительности и возврат возможной ошибки конвертации
 	duration, err := time.ParseDuration(slice[1])
 	if err != nil {
-		return err
+		return fmt.Errorf("Ошибка парсинга продолжительности: %w", err)
 	}
 	// проверка значения продолжительности
 	if duration <= 0 {
